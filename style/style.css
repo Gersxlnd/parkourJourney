@@ -1,0 +1,421 @@
+/* ============================================
+   TOKENS
+   ============================================ */
+:root{
+  --bg:            #182b32;
+  --bg-deep:       #102025;
+  --card:          #21383f;
+  --card-soft:     #1c3138;
+  --line:          #314f57;
+  --text:          #eaf1f1;
+  --text-dim:      #9fb6ba;
+  --gold:          #f0bc3c;
+  --gold-soft:     #f6d273;
+
+  --font-display:  'Fredoka', sans-serif;
+  --font-body:     'Inter', sans-serif;
+  --font-mono:     'JetBrains Mono', monospace;
+
+  --radius:        14px;
+  --radius-sm:     8px;
+  --maxw:          1080px;
+}
+
+*{ box-sizing: border-box; }
+
+html{ scroll-behavior: smooth; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(240,188,60,0.05), transparent 40%),
+    radial-gradient(circle at 88% 70%, rgba(240,188,60,0.04), transparent 45%);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: inherit; }
+
+:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ============================================
+   TOPBAR
+   ============================================ */
+.topbar{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 28px 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.topbar__crumb{
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.topbar__nav{ display: flex; gap: 22px; }
+
+.topbar__nav a{
+  font-size: 0.88rem;
+  text-decoration: none;
+  color: var(--text-dim);
+  transition: color .2s ease;
+}
+
+.topbar__nav a:hover{ color: var(--gold-soft); }
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 64px 24px 40px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero__eyebrow{
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin: 0 0 10px;
+}
+
+.hero__title{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  line-height: 1.02;
+  margin: 0 0 18px;
+  color: var(--text);
+}
+
+.hero__sub{
+  color: var(--text-dim);
+  font-size: 1.02rem;
+  max-width: 36ch;
+  margin: 0;
+}
+
+/* --- Player card: réplica minimalista do popup do jogo --- */
+.player-card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 24px 50px -20px rgba(0,0,0,0.55);
+}
+
+.player-card__bar{
+  background: var(--card-soft);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.player-card__name{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.player-card__tag{ color: var(--text-dim); font-weight: 500; }
+
+.player-card__dot{
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px rgba(240,188,60,0.15);
+}
+
+.player-card__rows{
+  list-style: none;
+  margin: 0;
+  padding: 6px 18px 16px;
+}
+
+.player-card__rows li{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 0.92rem;
+}
+
+.player-card__rows li:last-child{ border-bottom: none; }
+
+.player-card__rows span{ color: var(--text-dim); }
+
+.player-card__rows strong{
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.player-card__rows strong.accent{ color: var(--gold-soft); }
+
+.player-card__note{
+  margin: 0;
+  padding: 10px 18px 16px;
+  font-size: 0.74rem;
+  color: var(--text-dim);
+  opacity: 0.75;
+  font-style: italic;
+}
+
+/* ============================================
+   SECTION TITLES (shared)
+   ============================================ */
+.section-title{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 6px;
+}
+
+.section-title span{
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--gold-soft);
+}
+
+.section-hint{
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  margin: 0 0 32px;
+}
+
+section{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+section + section{
+  border-top: 1px solid var(--line);
+}
+
+/* ============================================
+   STATS
+   ============================================ */
+.stats__grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.stat{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 22px 18px;
+  text-align: left;
+}
+
+.stat__value{
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.9rem;
+  color: var(--gold-soft);
+  margin-bottom: 6px;
+}
+
+.stat__label{
+  font-size: 0.84rem;
+  color: var(--text-dim);
+}
+
+/* ============================================
+   CONQUISTAS
+   ============================================ */
+.conquistas__grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.conquista-card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 22px;
+}
+
+.conquista-card__icon{
+  font-size: 1.6rem;
+  margin-bottom: 14px;
+}
+
+.conquista-card h3{
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+}
+
+.conquista-card p{
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+/* ============================================
+   GALERIA
+   ============================================ */
+.galeria__grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.galeria__item{
+  margin: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .18s ease, border-color .18s ease;
+}
+
+.galeria__item:hover{
+  transform: translateY(-3px);
+  border-color: var(--gold);
+}
+
+.galeria__item img{
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--bg-deep);
+}
+
+.galeria__item figcaption{
+  padding: 10px 12px;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+  line-height: 1.3;
+}
+
+/* ============================================
+   LIGHTBOX
+   ============================================ */
+.lightbox{
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 16, 19, 0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 32px;
+}
+
+.lightbox.is-open{ display: flex; }
+
+.lightbox__figure{
+  margin: 0;
+  max-width: min(900px, 90vw);
+  text-align: center;
+}
+
+.lightbox__figure img{
+  max-width: 100%;
+  max-height: 75vh;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  display: block;
+  margin: 0 auto;
+}
+
+.lightbox__figure figcaption{
+  margin-top: 14px;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.lightbox__close,
+.lightbox__nav{
+  position: absolute;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .18s ease, color .18s ease;
+}
+
+.lightbox__close:hover,
+.lightbox__nav:hover{
+  border-color: var(--gold);
+  color: var(--gold-soft);
+}
+
+.lightbox__close{ top: 24px; right: 24px; }
+.lightbox__nav--prev{ left: 24px; top: 50%; transform: translateY(-50%); }
+.lightbox__nav--next{ right: 24px; top: 50%; transform: translateY(-50%); }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer{
+  text-align: center;
+  padding: 36px 24px 48px;
+  color: var(--text-dim);
+  font-size: 0.84rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 880px){
+  .hero{ grid-template-columns: 1fr; padding-top: 40px; }
+  .stats__grid{ grid-template-columns: repeat(2, 1fr); }
+  .conquistas__grid{ grid-template-columns: 1fr; }
+  .galeria__grid{ grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px){
+  .stats__grid{ grid-template-columns: 1fr; }
+  .galeria__grid{ grid-template-columns: repeat(2, 1fr); }
+  .topbar{ flex-direction: column; align-items: flex-start; }
+  .lightbox__nav{ width: 36px; height: 36px; font-size: 1.1rem; }
+  .lightbox__nav--prev{ left: 10px; }
+  .lightbox__nav--next{ right: 10px; }
+  .lightbox__close{ top: 12px; right: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+}
