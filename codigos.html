@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Códigos TFM · Parkour Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <span class="topbar__crumb">Lua scripts for Transformice</span>
+    <nav class="topbar__nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#galeria">Galery</a>
+      <a href="codigos.html" class="is-active">LUA TFM</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="codigos-hero">
+      <p class="hero__eyebrow">MY</p>
+      <h1 class="hero__title">TFM LUA CODES</h1>
+      <p class="hero__sub">Lua scripts I've written or found over time.</p>
+
+      <div class="codigos__toolbar">
+        <input
+          type="text"
+          id="codigosSearch"
+          class="codigos__search"
+          placeholder="Search by name or tag..."
+          autocomplete="off">
+      </div>
+    </section>
+
+    <section class="codigos" id="codigos">
+      <!--
+        Pra adicionar um script novo, só copiar um <article class="codigo-card"> inteiro
+        e trocar: data-tags, o título, a descrição e o conteúdo do <code>.
+        Tags separadas por vírgula, sem espaço, tipo: data-tags="shaman,evento"
+
+        Se o código for grande, ele fica com scroll dentro do card automaticamente
+        e aparece um botão "Expandir" (o codigos.js cuida de mostrar/esconder
+        esse botão sozinho, só precisa manter a <div class="code-block__fade">
+        e o <button class="code-block__expand"> dentro de cada .code-block).
+      -->
+
+      <article class="codigo-card" data-tags="exemplo,shaman">
+        <header class="codigo-card__head">
+          <div>
+            <h3>Welcome message</h3>
+            <p>Automatic message when someone enters the room.</p>
+          </div>
+          <div class="codigo-card__tags">
+            <span class="tag">Chat message</span>
+          </div>
+        </header>
+        <div class="code-block">
+          <button class="code-block__copy" type="button">Copy</button>
+          <pre><code>for name,player in pairs(tfm.get.room.playerList) do
+  tfm.exec.chatMessage("Welcome, "..name.."!", name)
+end</code></pre>
+          <div class="code-block__fade"></div>
+          <button class="code-block__expand" type="button">Expand</button>
+        </div>
+      </article>
+
+      <article class="codigo-card" data-tags="exemplo,evento">
+        <header class="codigo-card__head">
+          <div>
+            <h3>Checkpoint System</h3>
+            <p>Simple checkpoint system by pressing SPACE key.</p>
+          </div>
+          <div class="codigo-card__tags">
+            <span class="tag">Checkpoint</span>
+            <span class="tag">Keyboard key</span>
+          </div>
+        </header>
+        <div class="code-block">
+          <button class="code-block__copy" type="button">Copy</button>
+          <pre><code>local SPACE_KEY = 32
+local checkpoints = {}
+
+function eventKeyboard(name, key, down, x, y)
+    checkpoints[name] = {x = x, y = y}
+    ui.addTextArea(0, "<a href='event:checkpoint'>CP</a>", name, x, y, nil, 20, 0x324650, 0x000000, 0.5, false)
+end
+
+function eventNewGame()
+    checkpoints = {}
+    ui.removeTextArea(0, nil)
+end
+
+function eventNewPlayer(name)
+    system.bindKeyboard(name, SPACE_KEY, true, true)
+end
+
+function eventPlayerRespawn(name)
+    if checkpoints[name] then
+        local coords = checkpoints[name]
+        tfm.exec.movePlayer(name, coords.x, coords.y)
+    end
+end
+
+function eventTextAreaCallback(id, name, callback)
+    local coords = checkpoints[name]
+    tfm.exec.movePlayer(name, coords.x, coords.y)
+end
+
+table.foreach(tfm.get.room.playerList, eventNewPlayer)</code></pre>
+          <div class="code-block__fade"></div>
+          <button class="code-block__expand" type="button">Expand</button>
+        </div>
+      </article>
+
+      <article class="codigo-card" data-tags="exemplo,shaman">
+        <header class="codigo-card__head">
+          <div>
+            <h3>Nick color system</h3>
+            <p>System to change the color of your nickname.</p>
+          </div>
+          <div class="codigo-card__tags">
+            <span class="tag">ChatCommand</span>
+            <span class="tag">Nick Color</span>
+          </div>
+        </header>
+        <div class="code-block">
+          <button class="code-block__copy" type="button">Copy</button>
+          <pre><code>function eventChatCommand(playerName, command)
+    if command == "colornick" then
+        ui.showColorPicker(1, playerName, 0xffffff, "Choose your nick color")
+    end
+end
+
+function eventColorPicked( colorPickedId, playerName, color)
+    tfm.exec.setNameColor(playerName, color)
+end
+
+system.disableChatCommandDisplay(command, true)</code></pre>
+          <div class="code-block__fade"></div>
+          <button class="code-block__expand" type="button">Expand</button>
+        </div>
+      </article>
+
+      <article class="codigo-card" data-tags="exemplo,shaman">
+        <header class="codigo-card__head">
+          <div>
+            <h3>Chat message as print</h3>
+            <p>For non-fc/mt players</p>
+          </div>
+          <div class="codigo-card__tags">
+            <span class="tag">No perms</span>
+            <span class="tag">Chat Message</span>
+          </div>
+        </header>
+        <div class="code-block">
+          <button class="code-block__copy" type="button">Copy</button>
+          <pre><code>tfm.exec.chatMessage = print</code></pre>
+          <div class="code-block__fade"></div>
+          <button class="code-block__expand" type="button">Expand</button>
+        </div>
+      </article>
+
+      <article class="codigo-card" data-tags="exemplo,shaman">
+        <header class="codigo-card__head">
+          <div>
+            <h3>Admin detection</h3>
+            <p>Detect the script runner and mark as admin</p>
+          </div>
+          <div class="codigo-card__tags">
+            <span class="tag">No perms</span>
+            <span class="tag">Admin Detection</span>
+          </div>
+        </header>
+        <div class="code-block">
+          <button class="code-block__copy" type="button">Copy</button>
+          <pre><code>local function _getScriptRunner()
+  local _, err = pcall(0)
+  local name = string.match(err, "^(.-)%.")
+  return name
+end 
+
+local admin = {[_getScriptRunner()] = true}</code></pre>
+          <div class="code-block__fade"></div>
+          <button class="code-block__expand" type="button">Expand</button>
+        </div>
+      </article>
+
+      <article class="codigo-card" data-tags="exemplo,shaman">
+        <header class="codigo-card__head">
+          <div>
+            <h3>Leave a statue</h3>
+            <p>Leave a statue in the place where a player leaves</p>
+          </div>
+          <div class="codigo-card__tags">
+            <span class="tag">Statue</span>
+          </div>
+        </header>
+        <div class="code-block">
+          <button class="code-block__copy" type="button">Copy</button>
+          <pre><code>local playerList = {}
+
+eventNewPlayer = function(playerName)
+    playerList[playerName] = tfm.get.room.playerList[playerName]
+end
+
+eventPlayerLeft = function(playerName)
+    local playerGender = false
+    if playerList[playerName].gender ~= 2 then
+        playerGender = true
+    end 
+    tfm.exec.addNPC(playerList[playerName].playerName, {
+        title = playerList[playerName].title,
+        female = playerGender,
+        x = playerList[playerName].x,
+        y = playerList[playerName].y,
+        look = playerList[playerName].look,
+        lookAtPlayer = true
+    })
+    playerList[playerName] = nil
+end
+
+eventLoop = function()
+    for playerName in next, playerList do
+        if playerList[playerName] and tfm.get.room.playerList[playerName] then
+            playerList[playerName].x = tfm.get.room.playerList[playerName].x
+            playerList[playerName].y = tfm.get.room.playerList[playerName].y
+        end
+    end
+end
+
+for playerName in next, tfm.get.room.playerList do
+    eventNewPlayer(playerName)
+end</code></pre>
+          <div class="code-block__fade"></div>
+          <button class="code-block__expand" type="button">Expand</button>
+        </div>
+      </article>
+
+      <article class="codigo-card" data-tags="exemplo,shaman">
+        <header class="codigo-card__head">
+          <div>
+            <h3>Link mice</h3>
+            <p>Usage: <br>!link : Links all mice
+<br>!link a b c : Links a with b, and b with c. Can add more players</p>
+          </div>
+          <div class="codigo-card__tags">
+            <span class="tag">Link</span>
+          </div>
+        </header>
+        <div class="code-block">
+          <button class="code-block__copy" type="button">Copy</button>
+          <pre><code>function eventChatCommand(playerName, message)
+  local args = {}
+  local command
+  for arg in message:gmatch("%S+") do
+    args[#args + 1] = arg
+  end
+  command = table.remove(args, 1)
+
+  if command == "link" then
+    local mice = {}
+      if #args > 1 then
+        mice = args
+      else
+        for name, _ in next, tfm.get.room.playerList do
+          mice[#mice + 1] = name
+        end
+      end
+
+    if #mice > 1 then
+      for i=1, #mice - 1 do
+        tfm.exec.linkMice(mice[i], mice[i+1], true)
+      end
+    end
+  end
+end</code></pre>
+          <div class="code-block__fade"></div>
+          <button class="code-block__expand" type="button">Expand</button>
+        </div>
+      </article>
+
+      <p class="codigos__empty" id="codigosEmpty" hidden>None code found with this filter.</p>
+    </section>
+  </main>
+
+  <script src="script/script.js"></script>
+  <script src="script/codigos.js"></script>
+</body>
+</html>
