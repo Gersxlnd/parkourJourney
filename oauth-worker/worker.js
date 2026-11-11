@@ -28,6 +28,7 @@ function startAuth(url, env) {
     status: 302,
     headers: {
       Location: authorize.toString(),
+      'Cache-Control': 'no-store',
       'Set-Cookie': `${STATE_COOKIE}=${state}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`,
     },
   });
@@ -84,6 +85,13 @@ function reply(env, status, content) {
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
       'Set-Cookie': `${STATE_COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`,
+      // a página carrega o token: nunca guardar em cache
+      'Cache-Control': 'no-store',
+      // não pode ser embutida em iframe nem carregar nada externo
+      'X-Frame-Options': 'DENY',
+      'Content-Security-Policy': "default-src 'none'; script-src 'unsafe-inline'; frame-ancestors 'none'",
+      'Referrer-Policy': 'no-referrer',
+      'X-Content-Type-Options': 'nosniff',
     },
   });
 }

@@ -7,7 +7,13 @@
 <title>Admin · Parkour Journey</title>
 </head>
 <body>
-  <!-- Decap CMS: lê admin/config.yml e faz login com o GitHub -->
-  <script src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"></script>
+  <!-- Decap CMS: lê admin/config.yml e faz login com o GitHub.
+       integrity: o navegador só executa se o arquivo for exatamente esta versão
+       (protege o token de login caso a CDN seja comprometida).
+       Ao trocar a versão, recalcule o hash:
+       curl -sL URL | openssl dgst -sha384 -binary | openssl base64 -A -->
+  <script src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"
+          integrity="sha384-RWRzuHfiZSWCt3nEvG7B0v3cMgM1C2UuJmgBSL92GQh4uXmNSkbcthql/mNBqvjr"
+          crossorigin="anonymous"></script>
 </body>
 </html>
