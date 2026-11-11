@@ -1,0 +1,37 @@
+# Painel em https://gersxlnd.github.io/parkourJourney/admin/
+# Só quem tem permissão de escrita no repositório consegue salvar.
+backend:
+  name: github
+  repo: Gersxlnd/parkourJourney
+  branch: main
+  # URL do Cloudflare Worker de login (veja oauth-worker/README.md)
+  base_url: https://parkour-oauth.gerson-pereira1090.workers.dev
+  auth_endpoint: auth
+  commit_messages:
+    update: "Update gallery via admin"
+    uploadMedia: "Upload {{path}} via admin"
+    deleteMedia: "Delete {{path}} via admin"
+
+site_url: https://gersxlnd.github.io/parkourJourney/
+display_url: https://gersxlnd.github.io/parkourJourney/
+
+# Onde as imagens enviadas ficam no repo e como o site referencia elas
+media_folder: imagens
+public_folder: imagens
+
+collections:
+  - name: galeria
+    label: Gallery
+    files:
+      - name: galeria
+        label: Gallery screenshots
+        file: data/galeria.json
+        fields:
+          - name: items
+            label: Screenshots
+            label_singular: Screenshot
+            widget: list
+            summary: "{{fields.caption}}"
+            fields:
+              - { name: image, label: Image, widget: image, choose_url: false }
+              - { name: caption, label: Caption, widget: string, required: false }

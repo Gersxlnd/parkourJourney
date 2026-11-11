@@ -1,0 +1,9 @@
+name = "parkour-oauth"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://gersxlnd.github.io"
+# GITHUB_CLIENT_ID e GITHUB_CLIENT_SECRET são definidos como secrets:
+#   npx wrangler secret put GITHUB_CLIENT_ID
+#   npx wrangler secret put GITHUB_CLIENT_SECRET
